@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .account-container {
+        background: #87a07f;
+        padding: 30px;
+        border-radius: 8px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        color: #eee;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 32px;
+      }
+
+      .account-info {
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      .account-info p {
+        margin: 10px 0;
+        font-size: 18px;
+      }
+
+      button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #50725a;
+        color: #e5ebdb;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #9dceac;
+      }
+    </style>
+
+    <title>My Account</title>
+  </head>
+  <body>
+    <!--=============== HEADER ===============-->
+    <header class="header">
+      <div class="header__top">
+        <div class="header__container container">
+          <div class="header__contact">
+            <span>(+02)01012889126</span>
+            <span>Our Location</span>
+          </div>
+          <p class="header__alert-news">
+            Super Value Deals - Save more with coupons
+          </p>
+          <a
+            id="user-action"
+            href="login-register.html"
+            class="header__top-action"
+            >Log In/Sign Up
+          </a>
+        </div>
+      </div>
+      <nav class="nav container">
+        <a href="index.html" class="nav__logo">
+          <img src="assets/img/logo.svg" alt="" class="nav__logo-img" />
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="index.html" class="nav__link">Home</a>
+            </li>
+          </ul>
+          <div class="header__search">
+            <input
+              type="text"
+              placeholder="Search for Item.."
+              class="form__input"
+            />
+          </div>
+        </div>
+        <div class="header__user-actions">
+          <a href="cart.html" class="header__action-btn">
+            <img src="assets/img/icon-cart.svg" alt="" />
+            <span class="count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <div class="account-container">
+      <h1>My Account</h1>
+      <div class="account-info">
+        <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+        <p>
+          <strong>Member Since:</strong>
+          <span id="member-since">April 2025</span>
+        </p>
+      </div>
+
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <!--=============== FOOTER ===============-->
+    <footer class="footer"></footer>
+
+    <script>
+      const userEmail = localStorage.getItem("loggedInUser");
+
+      if (!userEmail) {
+        alert("You are not logged in!");
+        window.location.href = "login-register.html";
+      } else {
+        document.getElementById("user-email").textContent = userEmail;
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedInUser");
+        alert("Logged out successfully!");
+        window.location.href = "login-register.html";
+      }
+    </script>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

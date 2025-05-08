@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      #cart-items ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr auto;
+        gap: 10px;
+        align-items: center;
+      }
+
+      #cart-items li {
+        display: contents;
+      }
+
+      #cart-items li > * {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      #cart-items li:last-child > * {
+        border-bottom: none;
+      }
+
+      .remove-item {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .remove-item:hover {
+        background-color: #d32f2f;
+      }
+
+      #cart-items p {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #777;
+        padding: 20px 0;
+      }
+
+      .cart-item-name {
+        font-size: 1.1em;
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 2px;
+      }
+
+      .cart-item-quantity {
+        text-align: center;
+      }
+
+      .cart-item-price {
+        text-align: right;
+      }
+
+      .cart-item-total {
+        text-align: right;
+        font-weight: bold;
+      }
+
+      .remove-button-container {
+        display: flex;
+        justify-content: center;
+      }
+      .cart-header {
+        font-weight: bold;
+        color: #333;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+      }
+
+      .cart-header span {
+        text-align: inherit;
+      }
+      /* -------- */
+      .cart__total {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #9cad8f;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: right;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .cart__total strong {
+        font-size: 1.4em;
+        color: #000;
+      }
+      .buy-now-btn {
+        margin-top: 20px;
+        padding: 12px 20px;
+        background-color: #5f7e60;
+        color: white;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .buy-now-btn:hover {
+        background-color: #388e3c;
+      }
+    </style>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <title>Your Cart</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__top">
+        <div class="header__container container">
+          <div class="header__contact">
+            <span>(+02)01012889126</span>
+            <span>Our Location</span>
+          </div>
+          <p class="header__alert-news">
+            Super Value Deals - Save more with coupons
+          </p>
+          <a
+            id="user-action"
+            href="login-register.html"
+            class="header__top-action"
+            >Log In/Sign Up
+          </a>
+        </div>
+      </div>
+      <nav class="nav container">
+        <a href="index.html" class="nav__logo">
+          <img src="assets/img/logo.svg" alt="" class="nav__logo-img" />
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="index.html" class="nav__link">Home</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="accounts.html" class="nav__link">My Account</a>
+            </li>
+          </ul>
+          <div class="header__search">
+            <input
+              type="text"
+              placeholder="Search for Item.."
+              class="form__input"
+            />
+            <button class="search__btn">
+              <img src="assets/img/search.png" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="header__user-actions">
+          <a href="cart.html" class="header__action-btn">
+            <img src="assets/img/icon-cart.svg" alt="" />
+            <span class="count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h1>Your Shopping Cart</h1>
+      <div id="cart-items"></div>
+      <div id="cart-total">
+        <div class="cart__total"><strong>Total: $0.00</strong></div>
+      </div>
+      <button class="buy-now-btn" id="buy-now-btn">Buy Now</button>
+    </main>
+
+    <script>
+      function displayCart() {
+        const cartItemsContainer = document.getElementById("cart-items");
+        const cartTotalContainer = document.getElementById("cart-total");
+        let cart = localStorage.getItem("cart");
+        cart = cart ? JSON.parse(cart) : [];
+        let total = 0;
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+        } else {
+          let cartHTML = "<ul>";
+          cartHTML += `
+      <li class="cart-header">
+        <span>Item Name</span>
+        <span class="cart-item-quantity">Quantity</span>
+        <span class="cart-item-price">Price</span>
+        <span class="cart-item-total">Total</span>
+        <span>Action</span>
+      </li>
+    `;
+          cart.forEach((item) => {
+            const itemTotal = item.price * item.quantity;
+            cartHTML += `
+              <li>
+                <span class="cart-item-name">${item.name}</span>
+                <strong class="cart-item-quantity">${item.quantity}</strong>
+                <strong class="cart-item-price">$${item.price.toFixed(
+                  2
+                )}</strong>
+                <strong class="cart-item-total">$${itemTotal.toFixed(
+                  2
+                )}</strong>
+                <div class="remove-button-container">
+                  <button class="remove-item" data-item-name="${
+                    item.name
+                  }">Remove</button>
+                </div>
+              </li>`;
+            total += itemTotal;
+          });
+          cartHTML += "</ul>";
+          cartItemsContainer.innerHTML = cartHTML;
+
+          const removeButtons = document.querySelectorAll(".remove-item");
+          removeButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+              const itemNameToRemove = this.dataset.itemName;
+              decreaseCartItemQuantity(itemNameToRemove);
+              displayCart();
+              updateCartItemCount();
+            });
+          });
+        }
+
+        cartTotalContainer.innerHTML = `<div class="cart__total"><strong>Total: $${total.toFixed(
+          2
+        )}</strong></div>`;
+      }
+
+      function decreaseCartItemQuantity(itemName) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const itemIndex = cart.findIndex((item) => item.name === itemName);
+
+        if (itemIndex > -1) {
+          if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity--;
+          } else {
+            cart.splice(itemIndex, 1);
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+      }
+
+      function updateCartItemCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const itemCountSpan = document.querySelector(
+          ".header__user-actions .count"
+        );
+        if (itemCountSpan) {
+          const totalQuantity = cart.reduce(
+            (total, item) => total + item.quantity,
+            0
+          );
+          itemCountSpan.textContent = totalQuantity;
+        }
+      }
+      function handleBuyNow() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cart.length === 0) {
+          alert("Your cart is empty. Add some products first!");
+        } else {
+          alert("Thank you for your Order!");
+          localStorage.removeItem("cart");
+          displayCart();
+          updateCartItemCount();
+        }
+      }
+
+      document
+        .getElementById("buy-now-btn")
+        .addEventListener("click", handleBuyNow);
+
+      displayCart();
+      updateCartItemCount();
+    </script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

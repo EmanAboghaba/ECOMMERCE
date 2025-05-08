@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--=============== CSS ===============-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .details__page {
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+      }
+
+      .details__container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        align-items: start; /* Align items to the top in each grid area */
+      }
+
+      .details__img {
+        width: 100%;
+        display: block;
+        border-radius: 0.5rem;
+      }
+
+      .details__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Space between info elements */
+      }
+
+      .details__title {
+        font-size: 2rem;
+        color: var(--title-color); /* Use your theme colors */
+      }
+
+      .details__rating {
+        color: var(--text-color-light);
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .details__rating i {
+        color: gold; /* Or your star color */
+      }
+
+      .details__price {
+        font-size: 1.5rem;
+        color: var(--primary-color); /* Use your theme colors */
+      }
+
+      .details__price .old__price {
+        color: var(--text-color-light);
+        text-decoration: line-through;
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .details__description {
+        line-height: 1.6;
+        color: var(--text-color);
+      }
+
+      .details__actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .details__quantity {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border-color); /* Use your theme colors */
+        border-radius: 0.25rem;
+        overflow: hidden;
+      }
+
+      .details__add-to-cart {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .details__meta {
+        font-size: 0.9rem;
+        color: var(--text-color-light);
+      }
+
+      .details__meta a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .details__meta a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <title>Ecommerce Website</title>
+  </head>
+  <body>
+    <!--=============== HEADER ===============-->
+    <header class="header">
+      <div class="header__top">
+        <div class="header__container container">
+          <div class="header__contact">
+            <span>(+02)01012889126</span>
+            <span>Our Location</span>
+          </div>
+          <p class="header__alert-news">
+            Super Value Deals - Save more with coupons
+          </p>
+          <a
+            id="user-action"
+            href="login-register.html"
+            class="header__top-action"
+            >Log In/Sign Up
+          </a>
+        </div>
+      </div>
+      <nav class="nav container">
+        <a href="index.html" class="nav__logo">
+          <img src="assets/img/logo.svg" alt="" class="nav__logo-img" />
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="index.html" class="nav__link">Home</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="accounts.html" class="nav__link">My Account</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="login-register.html" class="nav__link">Login</a>
+            </li>
+          </ul>
+          <div class="header__search">
+            <input
+              type="text"
+              placeholder="Search for Item.."
+              class="form__input"
+            />
+            <button class="search__btn">
+              <img src="assets/img/search.png" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="header__user-actions">
+          <a href="cart.html" class="header__action-btn">
+            <img src="assets/img/icon-cart.svg" alt="" />
+            <span class="count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!--=============== MAIN ===============-->
+    <main class="main container details__page">
+      <div class="details__container grid">
+        <div class="details__img-container">
+          <img src="" alt="Product Image" class="details__img main-img" />
+        </div>
+        <div class="details__info">
+          <h1 class="details__title">Colorful Pattern Shirts</h1>
+          <div class="details__rating">
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+          </div>
+          <div class="details__price">
+            $238
+            <span class="old__price">$245</span>
+          </div>
+          <p class="details__description">
+            description for the colorful pattern shirt.
+          </p>
+          <div class="details__actions"></div>
+          <div class="details__meta">
+            <span>Category: <a href="#">Clothing</a></span>
+            <span>Tags: <a href="#">Clothes</a>, <a href="#">Pattern</a></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>© 2025 Ecommerce. All rights reserved By Eman Mohamed.</p>
+      </div>
+    </footer>
+
+    <!--=============== MAIN JS ===============-->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const storedProduct = localStorage.getItem("selectedProduct");
+
+        if (storedProduct) {
+          const product = JSON.parse(storedProduct);
+          displayProductDetails(product);
+        } else {
+          const detailsContainer = document.querySelector(
+            ".details__container"
+          );
+          if (detailsContainer) {
+            detailsContainer.innerHTML = "<p>No product details available.</p>";
+          }
+        }
+      });
+
+      function displayProductDetails(product) {
+        const mainImg = document.querySelector(".details__img.main-img");
+        const detailsTitle = document.querySelector(".details__title");
+        const detailsPriceElement = document.querySelector(".details__price"); // Target the main price div
+        const oldPriceSpan = document.querySelector(
+          ".details__price .old__price"
+        );
+        const detailsDescription = document.querySelector(
+          ".details__description"
+        );
+        const categoryLink = document.querySelector(
+          ".details__meta span:first-child a"
+        );
+        const tagLinks = document.querySelectorAll(
+          ".details__meta span:last-child a"
+        );
+        const ratingContainer = document.querySelector(".details__rating");
+        if (mainImg && product.colors && product.colors.length > 0) {
+          mainImg.src = product.colors[0].mainImage;
+          mainImg.alt = product.title || "Product Image";
+        }
+        if (detailsTitle && product.title) {
+          detailsTitle.textContent = product.title;
+        }
+        if (detailsPriceElement && typeof product.price === "number") {
+          detailsPriceElement.textContent = `$${product.price.toFixed(2)}`;
+          // If there's an old price, append it
+          if (oldPriceSpan && typeof product.oldPrice === "number") {
+            const oldPriceText = document.createElement("span");
+            oldPriceText.classList.add("old__price");
+            oldPriceText.textContent = `$${product.oldPrice.toFixed(2)}`;
+            detailsPriceElement.appendChild(document.createTextNode(" "));
+            detailsPriceElement.appendChild(oldPriceText);
+          } else if (oldPriceSpan) {
+            oldPriceSpan.style.display = "none";
+          }
+        } else if (detailsPriceElement) {
+          detailsPriceElement.textContent = "";
+          if (oldPriceSpan) oldPriceSpan.style.display = "none";
+        }
+        if (detailsDescription && product.description) {
+          detailsDescription.textContent = product.description;
+        } else if (detailsDescription) {
+          detailsDescription.textContent = "No description available.";
+        }
+        if (categoryLink && product.category) {
+          categoryLink.textContent = product.category;
+          categoryLink.href = `shop.html?category=${encodeURIComponent(
+            product.category
+          )}`;
+        }
+        if (tagLinks && product.tags && Array.isArray(product.tags)) {
+          tagLinks.forEach((link, index) => {
+            if (product.tags[index]) {
+              link.textContent = product.tags[index];
+              link.href = `shop.html?tag=${encodeURIComponent(
+                product.tags[index]
+              )}`;
+            } else {
+              link.style.display = "none";
+            }
+          });
+        }
+        if (ratingContainer && typeof product.rating === "number") {
+          ratingContainer.innerHTML = "";
+          for (let i = 0; i < 5; i++) {
+            const star = document.createElement("i");
+            star.classList.add("fa-regular", "fa-star");
+            if (i < Math.floor(product.rating)) {
+              star.classList.replace("fa-regular", "fa-solid");
+            }
+            ratingContainer.appendChild(star);
+          }
+        }
+      }
+    </script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
